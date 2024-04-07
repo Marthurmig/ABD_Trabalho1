@@ -84,7 +84,7 @@ INSERT INTO cirurgia (id_cirurgia, codigo, data_consulta, descricao, id_paciente
 ------------------2------------------
 CREATE OR REPLACE FUNCTION criar_cirurgia(codigo_cirurgia numeric, codigo_paciente numeric ,data_cirurgia date, descricao_cirurgia text) RETURNS record  
 AS 
-$$
+$$ 
 DECLARE
 	result_consulta integer;
 	dados_cirurgia record;
