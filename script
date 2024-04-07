@@ -81,6 +81,33 @@ INSERT INTO cirurgia (id_cirurgia, codigo, data_consulta, descricao, id_paciente
 (5, 654, '2024-04-30', 'Cirurgia plástica', 5),
 (6, 987, '2024-05-05', 'Cirurgia de joelho', 6);
 
+------------------2------------------
+CREATE OR REPLACE FUNCTION criar_cirurgia(codigo_cirurgia numeric, codigo_paciente numeric ,data_cirurgia date, descricao_cirurgia text) RETURNS record 
+AS 
+$$
+DECLARE
+	result_consulta integer;
+	dados_cirurgia record;
+BEGIN
+	SELECT paciente.id_paciente INTO result_consulta 
+	FROM paciente
+	WHERE codigo_paciente = paciente.codigo;
+	IF (result_consulta IS NOT NULL) THEN 
+		INSERT INTO cirurgia VALUES
+		(nextval('sid_cirurgia'), codigo_cirurgia, data_cirurgia, descricao_cirurgia, result_consulta);
+	ELSE 
+		RAISE 'Paciente não foi encontrado.';
+	END IF;
+	RETURN dados_cirurgia;
+END;
+$$ 
+LANGUAGE PLPGSQL;
+
+select criar_cirurgia(100, 123456, '2024-03-30', 'Cirurgia da Coluna');
+select criar_cirurgia(101, 789012, '2024-04-09', 'Cirurgia de hérnia');
+select criar_cirurgia(102, 345678, '2024-04-10', 'Cirurgia de catarata');
+select * from cirurgia
+
 ----------------- 3 -----------------
 CREATE OR REPLACE FUNCTION f_verificaIntervaloData(dataInicio atende.data_consulta%type, dataFim atende.data_consulta%type)
 RETURNS SETOF RECORD
@@ -145,3 +172,12 @@ INSERT INTO cirurgia (id_cirurgia, codigo, data_consulta, descricao, id_paciente
 (nextval('sid_cirurgia'), 565, '2024-03-12', 'Cirurgia do siso', 6);
 
 select * from cirurgia;
+
+------------------5------------------
+Alternativa D
+
+------------------6------------------
+Alternativa E
+
+------------------7------------------
+Alternativa E
