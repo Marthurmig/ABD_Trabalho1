@@ -115,6 +115,11 @@ CREATE OR REPLACE FUNCTION criar_cirurgia(codigo_cirurgia numeric, codigo_pacien
 	$$
 	LANGUAGE PLPGSQL;
 
+select criar_cirurgia(100, 123456, '2024-04-06', 'Cirurgia da Coluna');
+select criar_cirurgia(101, 789012, '2024-04-07', 'Cirurgia de hérnia');
+select criar_cirurgia(102, 345678, '2024-04-08', 'Cirurgia de catarata');
+select * from cirurgia
+
 ----------------- 3 -----------------
 CREATE OR REPLACE FUNCTION f_verificaIntervaloData(dataInicio atende.data_consulta%type, dataFim atende.data_consulta%type)
 RETURNS SETOF RECORD
